@@ -192,7 +192,7 @@ void cleanUp() {
 	}
 }
 
-DWORD particles (DWORD  newParticles, DWORD* locations)
+DWORD particles(DWORD newParticles, DWORD* locations)
 {
 	// 0x004012f0 in release build
 	if (locations[0] == 0x00FF)
@@ -244,7 +244,7 @@ Ring:
 		pop ebx;
 		pop eax;
 	}
-	swab((char*)particleFX, (char*)particleFX, locs);		// Swap every other byte
+	_swab((char*)particleFX, (char*)particleFX, locs);		// Swap every other byte
 	SR1.Write(newParticles, particleFX, locs);
 	return locs;
 }
@@ -255,7 +255,7 @@ DWORD forceFX (DWORD newParticles,  DWORD fxLocations...)
 	SR1.Write(newParticles+0x10, newParticles+0x30);
 	SR1.Write(newParticles+0x14, newParticles+0x1C);    // Used to have value 0053B358
 	SR1.WriteXString(newParticles+0x18, "01 08 00 CD C7 01 8E 03 55 05 1C 07 E4 08 AB 0A 72 0C 39 0E 00 00 CD CD");
-	particles (newParticles+0x30, &fxLocations);
+	particles(newParticles+0x30, &fxLocations);
 	return 0;
 }
 DWORD blastFX (DWORD blastData, DWORD fxLocations...)
@@ -702,7 +702,7 @@ menuItem possession(DWORD location) {
 		while (*hexStr) {													// For every character
 			if (isxdigit(*hexStr)) {
 				if (isxdigit(hexStr[1])) {
-					sscanf(hexStr++, "%02x", (BYTE*) &array[dataSize++]);	// If it's hex scan for a byte
+					sscanf(hexStr++, "%02x", (DWORD*) &array[dataSize++]);	// If it's hex scan for a byte
 				}
 			}
 			hexStr++;

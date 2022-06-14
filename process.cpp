@@ -125,7 +125,7 @@ BYTE* CProcess::WriteXString(DWORD p_Address, char* hexStr)				// In dire need o
 	while (*hexStr) {													// For every character
 		if (isxdigit(*hexStr)) {
 			if (isxdigit(hexStr[1])) {
-				sscanf(hexStr++, "%02x", (BYTE*) &array[dataSize++]);	// If it's hex scan for a byte
+				sscanf(hexStr++, "%02x", (DWORD*) &array[dataSize++]);	// If it's hex scan for a byte
 			}
 		}
 		hexStr++;
